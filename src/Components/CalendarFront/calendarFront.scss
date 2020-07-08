@@ -166,3 +166,11 @@
     background: darken($blue, 10%);
   }
 }
+
+@media print {
+  .cal-front-item {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid black;
+  }
+}

@@ -44,3 +44,12 @@
   position: relative;
   border-top: 1px solid lighten($coolGray, 15%);
 }
+
+@media print {
+  .calendar-wrap {
+    top: 0 !important;
+    -ms-transform: scale(0.9,0.9);
+    transform: scale(0.9,0.9);
+    page-break-after: always;
+  }
+}

@@ -34,6 +34,12 @@ function Sidebar(props) {
         >
           Reset Calendar
         </button>
+        <button 
+          onClick={props.handlePrint}
+          className="print-btn"
+        >
+          Print
+        </button>
       </div>
       <div className="filters">
         <div className="filter-header">

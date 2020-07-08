@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './app.scss';
 import Calendar from './Components/Calendar/Calendar';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Header from './Components/Header/Header';
 import Nav from './Components/Nav/Nav';
 import Footer from './Components/Footer/Footer';
+import { useReactToPrint } from 'react-to-print';
+import Printable from './Components/Print/printable';
+import ClassDetailsList from './Components/ClassDetailsList/classdetailslist';
 
 import Modal from 'react-modal';
 import ClassModal from './Components/ClassModal/classmodal';
@@ -34,6 +37,7 @@ function App() {
   const [instructorValue, setInstructorValue] = useState([]);
   const [block, setBlock] = useState([]);
   const [blockValue, setBlockValue] = useState([]);
+  const [activeFilter, setActiveFilter] = useState('');
 
   const [classModalIsOpen, setClassModalIsOpen] = useState(false);
   const [classModalData, setClassModalData] = useState({});
@@ -458,6 +462,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setRoomValue({ label: 'Filter Room...', value: 0 });
+    setActiveFilter("Block: "+selectedOption.label);
   };
   const handleInstructorChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -469,6 +474,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
     setRoomValue({ label: 'Filter Room...', value: 0 });
+    setActiveFilter("Instructor: "+selectedOption.label);
   };
   const handleRoomChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -484,6 +490,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
+    setActiveFilter("Room: "+selectedOption.label);
   };
   const handleCourseChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -495,6 +502,7 @@ function App() {
     setRoomValue({ label: 'Filter Room...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
+    setActiveFilter("Course: "+selectedOption.label);
   };
 
   const clearFilters = () => {
@@ -503,6 +511,7 @@ function App() {
     setRoomValue({ label: 'Filter Room...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
+    setActiveFilter('');
   };
   const handleResetCalendar = () => {
     setFile('');
@@ -516,7 +525,14 @@ function App() {
     setRoomValue([]);
     setInitialData([]);
     setDisplayData([]);
+    setActiveFilter('');
   };
+
+  //Print handler
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <div className="App">
@@ -558,15 +574,26 @@ function App() {
           setDisplayData={setDisplayData}
           setInitialData={setInitialData}
           handleResetCalendar={handleResetCalendar}
+          handlePrint={handlePrint}
         />
-        <Calendar
-          // These are all the props being sent to the Calendar component
-          initialData={initialData}
-          setInitialData={setInitialData}
-          displayData={displayData}
-          setDisplayData={setDisplayData}
-          openClassModal={openClassModal}
-        />
+        <Printable ref={componentRef}>
+          <div className="printOnly">
+            <div className="calTitleContainer">
+              <div className="calTitle bold">{activeFilter}</div>
+            </div>
+          </div>
+          <Calendar
+            // These are all the props being sent to the Calendar component
+            initialData={initialData}
+            setInitialData={setInitialData}
+            displayData={displayData}
+            setDisplayData={setDisplayData}
+          />
+          <ClassDetailsList 
+            displayData={displayData}
+            title={activeFilter}
+          />
+        </Printable>
       </div>
       <Footer />
     </div>

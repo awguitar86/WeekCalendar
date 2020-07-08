@@ -59,6 +59,24 @@
     background: lighten($coolGray, 10%);
   }
 }
+.print-btn {
+  width: 100%;
+  height: 50px;
+  background: white;
+  border: solid 2px $green1;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+  margin-bottom: 15px;
+  font-size: 14pt;
+  font-family: $Rajdhani;
+  font-weight: 600;
+  // margin-top: 10px;
+  &:hover {
+    background: $green1;
+    color: white;
+  }
+}
 .filters {
   width: 100%;
   height: 400px;
