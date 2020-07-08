@@ -462,7 +462,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setRoomValue({ label: 'Filter Room...', value: 0 });
-    setActiveFilter("Block: "+selectedOption.label);
+    setActiveFilter('Block: ' + selectedOption.label);
   };
   const handleInstructorChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -474,7 +474,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
     setRoomValue({ label: 'Filter Room...', value: 0 });
-    setActiveFilter("Instructor: "+selectedOption.label);
+    setActiveFilter('Instructor: ' + selectedOption.label);
   };
   const handleRoomChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -490,7 +490,7 @@ function App() {
     setCourseValue({ label: 'Filter Course...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
-    setActiveFilter("Room: "+selectedOption.label);
+    setActiveFilter('Room: ' + selectedOption.label);
   };
   const handleCourseChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption);
@@ -502,7 +502,7 @@ function App() {
     setRoomValue({ label: 'Filter Room...', value: 0 });
     setInstructorValue({ label: 'Filter Instructor...', value: 0 });
     setBlockValue({ label: 'Filter Block...', value: 0 });
-    setActiveFilter("Course: "+selectedOption.label);
+    setActiveFilter('Course: ' + selectedOption.label);
   };
 
   const clearFilters = () => {
@@ -588,11 +588,9 @@ function App() {
             setInitialData={setInitialData}
             displayData={displayData}
             setDisplayData={setDisplayData}
+            openClassModal={openClassModal}
           />
-          <ClassDetailsList 
-            displayData={displayData}
-            title={activeFilter}
-          />
+          <ClassDetailsList displayData={displayData} title={activeFilter} />
         </Printable>
       </div>
       <Footer />
