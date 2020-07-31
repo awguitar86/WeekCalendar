@@ -387,6 +387,32 @@ function App() {
             });
           }
         }
+      
+      //time and instructor schedule
+      
+      const filterArray=[];
+        var uniqueObj =[];
+        dataArray.forEach(data =>{
+        	if (!filterArray.find(dat => dat.instructor == data.instructor &&
+        		dat.course == data.course && dat.meetingPattern == data.meetingPattern)){
+        	const {instructor,course,meetingPattern} = data;
+        	filterArray.push({instructor,course,meetingPattern});
+        	}
+
+        });
+        for(var i = 0; i< filterArray.length; i++){
+    		if (uniqueObj.indexOf(filterArray[i].instructor) === -1 &&
+    		uniqueObj.indexOf(filterArray[i].course) === -1 &&
+    		uniqueObj.indexOf(filterArray[i].meetingPattern) === -1){
+    		alert('No Intersections');
+    		}
+    		else {
+    		alert('schedule intersects');
+    		}
+    	}
+        console.log('uniqueObj',uniqueObj)
+      
+      
 
         //Remove duplicates from courseArray
         const courseArrayUnique = courseArray.filter((item, index, self) => {
