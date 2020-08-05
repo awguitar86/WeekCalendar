@@ -85,43 +85,6 @@ function App() {
             });
           }
         }
-        console.log(dataArray);
-        // This for loop loops through the dataArray and pushes the correct data into each of the different useState data arrays.
-        for (let item of dataArray) {
-          if (roomArray.length <= 0) {
-            const room = item.location.split(';')[0]; //Remove extra information after the semicolon
-            roomArray.push(room);
-          }
-          if (!roomArray.includes(item.location)) {
-            const room = item.location.split(';')[0]; //Remove extra information after the semicolon
-            roomArray.push(room);
-          }
-          if (instructorArray.length <= 0) {
-            instructorArray.push(item.instructor);
-          }
-          if (!instructorArray.includes(item.instructor)) {
-            instructorArray.push(item.instructor);
-          }
-          if (blockArray.length <= 0) {
-            blockArray.push(item.block);
-          }
-          if (!blockArray.includes(item.block)) {
-            blockArray.push(item.block);
-          }
-          if (courseArray.length <= 0) {
-            courseArray.push({
-              courseNumber: item.course,
-              courseTitle: item.courseTitle,
-            });
-          }
-          if (!courseArray.includes(item.courseTitle)) {
-            courseArray.push({
-              courseNumber: item.course,
-              courseTitle: item.courseTitle,
-            });
-          }
-        }
-      
       
       //time and instructor schedule
       const filterArray=[];
@@ -152,66 +115,6 @@ function App() {
     		alert('schedule intersects');
     		return;
     	}
-      
-      
-
-        //Remove duplicates from courseArray
-        const courseArrayUnique = courseArray.filter((item, index, self) => {
-          return (
-            index ===
-            self.findIndex((t) => {
-              //This will return the first index match so will be false for duplicates
-              return (
-                t.courseNumber === item.courseNumber &&
-                t.courseTitle === item.courseTitle
-              ); //Finds index where this condition is true
-            })
-          );
-        });
-        //Remove duplicates from roomArray
-        const roomArrayUnique = roomArray.filter((item, index, self) => {
-          return (
-            index ===
-            self.findIndex((t) => {
-              //This will return the first index match so will be false for duplicates
-              return t === item; //Finds index where this condition is true
-            })
-          );
-        });
-
-        // These variables are for the filter dropdown options.
-        // They filter through the specific arrays for each filter and add the correct data for the value and label in the object.
-        const courseOptions = courseArrayUnique.sort().map((item) => {
-          return {
-            value: item.courseTitle,
-            label: item.courseNumber + ' ' + item.courseTitle,
-          };
-        });
-        const roomOptions = roomArrayUnique.sort().map((item) => {
-          return {
-            value: item,
-            label: item,
-          };
-        });
-        const instructorOptions = instructorArray.sort().map((item) => {
-          return {
-            value: item,
-            label: item,
-          };
-        });
-        const blockOptions = blockArray.sort().map((item) => {
-          return {
-            value: item,
-            label: item,
-          };
-        });
-        // These then set the useState variables with the correct data to be used elsewhere in the app.
-        setInitialData(dataArray);
-        setInitialAndChangedData(dataArray);
-        setDisplayData(dataArray);
-      })
-      .catch((err) => console.log(err));
-  };
 
   useEffect(() => {
     const roomArray = [];
