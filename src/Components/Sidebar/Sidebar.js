@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './sidebar.scss';
 import Select from 'react-select';
+import Modal from 'react-modal';
 
 function Sidebar(props) {
+  const [openClearCalendarModal, setOpenClearCalendarModal] = useState(false);
+
   return (
     <div className="sidebar">
       <h1>Academic Scheduling Aid</h1>
@@ -23,16 +26,7 @@ function Sidebar(props) {
           onClick={props.fileHandler}
           className="upload-btn"
         >
-          IMPORT
-        </button>
-        <button
-          className="reset-calendar"
-          onClick={() => {
-            props.handleResetCalendar();
-            document.getElementById('csvfile').value = '';
-          }}
-        >
-          Reset Calendar
+          IMPORT CALENDAR FILE
         </button>
       </div>
       <div className="filters">
@@ -71,6 +65,48 @@ function Sidebar(props) {
           onChange={props.handleBlockChange}
         />
       </div>
+      <button
+        className="reset-calendar"
+        onClick={() => setOpenClearCalendarModal(true)}
+      >
+        RESET CALENDAR
+      </button>
+      {/* ** MODAL ***/}
+      <Modal
+        isOpen={openClearCalendarModal}
+        contentLabel="onRequestClose Example"
+        onRequestClose={() => setOpenClearCalendarModal(false)}
+        shouldCloseOnOverlayClick={false}
+        style={{ display: 'flex' }}
+        className="clear-calendar-modal"
+        ariaHideApp={false}
+      >
+        <div className="clear-calendar-modal-body">
+          <h3>Are you sure you want to clear the calendar?</h3>
+          <p>
+            This will clear all data that was uploaded from the CSV file and any
+            changes you made.
+          </p>
+          <div className="clear-calendar-modal-btns">
+            <button
+              className="clear-calendar-cancel-btn"
+              onClick={() => setOpenClearCalendarModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="clear-calendar-clear-btn"
+              onClick={() => {
+                props.handleResetCalendar();
+                document.getElementById('csvfile').value = '';
+              }}
+            >
+              Clear Calendar
+            </button>
+          </div>
+        </div>
+      </Modal>
+      {/*** MODAL END **/}
     </div>
   );
 }

@@ -17,11 +17,14 @@
   border-radius: 5px;
   padding: 5px;
   cursor: pointer;
-  p {
-    margin: 0;
-    font-size: 9pt;
-  }
 }
+
+.cal-front-item-p {
+	margin: 0;
+	font-size: 9.5pt;
+	font-weight: 500;
+}
+
 
 .course-modal {
   width: 100vw;
@@ -144,7 +147,7 @@
 .cancel-btn {
   width: 120px;
   height: 35px;
-  font-family: $Rajdhani;
+  font-family: $Raj;
   background: $gray;
   transition: ease-in-out 0.2s;
   cursor: pointer;
@@ -156,7 +159,7 @@
 .save-btn {
   width: 120px;
   height: 35px;
-  font-family: $Rajdhani;
+  font-family: $Raj;
   background: $blue;
   color: white;
   margin-left: 20px;

@@ -7,6 +7,8 @@ import { calDays, calTimes } from '../../calendarDaysAndTimesData';
 function CalendarFrontEvent(props) {
   const { startTime, endTime, event, day } = props;
 
+  // console.log(classId);
+
   return (
     <div
       className="cal-front-item"
@@ -17,7 +19,7 @@ function CalendarFrontEvent(props) {
       }}
     >
       <p>{event.course}</p>
-      <p>{event.courseTitle}</p>
+      <p>{event.courseTitle.substring(0, 15) + '...'}</p>
       <p>{event.meetingPattern}</p>
     </div>
   );
