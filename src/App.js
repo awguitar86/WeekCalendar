@@ -115,25 +115,32 @@ function App() {
       //time and instructor schedule
       const filterArray=[];
         var uniqueObj =[];
+        var bool = true;
         dataArray.forEach(data =>{
-        	if (!filterArray.find(dat => dat.instructor == data.instructor &&
-        		dat.course == data.course && dat.meetingPattern == data.meetingPattern)){
+        	if (!filterArray.find(dat => dat.instructor === data.instructor &&
+        		dat.course === data.course && dat.meetingPattern === data.meetingPattern)){
         	const {instructor,course,meetingPattern} = data;
         	filterArray.push({instructor,course,meetingPattern});
         	}
-
         });
+
         for(var i = 0; i< filterArray.length; i++){
     		if (uniqueObj.indexOf(filterArray[i].instructor) === -1 &&
     		uniqueObj.indexOf(filterArray[i].course) === -1 &&
     		uniqueObj.indexOf(filterArray[i].meetingPattern) === -1){
-    		alert('No schedule intersects');
+    		bool = true;    		
     		}
-    		else {
-    		alert('schedule intersects');
+    		else{
+    		bool = false;
     		}
     	}
-        console.log('uniqueObj',uniqueObj)
+    	if (bool === true){
+    		alert('No schedule intersects');
+    	}
+    	else{
+    		alert('schedule intersects');
+    		return;
+    	}
       
       
 
