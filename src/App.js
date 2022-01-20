@@ -126,7 +126,7 @@ function App() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('csvfile', file);
-    let url = 'https://schedge.dev/calendar/postcsv'; //'https://schedge.dev/calendar/postcsv';
+    let url = 'http://localhost:8080/calendar/postcsv'; //'https://schedge.dev/calendar/postcsv';
     let method = 'POST';
 
     fetch(url, {
@@ -140,7 +140,6 @@ function App() {
         return res.json();
       })
       .then((resData) => {
-        console.log(resData);
         // These are all the empty arrays that will be filled with data after filtering through the resData.
         const dataArray = [];
         // This for loop is for filtering through the data and getting rid of all the heading rows and columns in the csv file.
@@ -209,12 +208,13 @@ function App() {
           alert('schedule intersects');
           return;
         }
-        console.log(dataArray);
         setInitialData(dataArray);
         setInitialAndChangedData(dataArray);
         setDisplayData(dataArray);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw err;
+      });
   };
 
   //export to excel file and start download
@@ -236,8 +236,6 @@ function App() {
         return res.blob();
       })
       .then((resData) => {
-        console.log('RES:', resData);
-
         //Create link to click for automatic download
         const downloadLink = document.createElement('a');
         const url = window.URL.createObjectURL(resData);
@@ -348,7 +346,6 @@ function App() {
   // When a user selects something it filters through the specific filter data and sets the specific useState with the new filtered data.
   // Each function also resets the other filters back to 0.
   const handleBlockChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption);
     const blockFilteredData = initialAndChangedData.filter(
       (item) => item.block === selectedOption.value
     );
@@ -360,7 +357,6 @@ function App() {
     setActiveFilter('Block: ' + selectedOption.label);
   };
   const handleInstructorChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption);
     const instructorFilteredData = initialAndChangedData.filter(
       (item) => item.instructor === selectedOption.value
     );
@@ -372,7 +368,6 @@ function App() {
     setActiveFilter('Instructor: ' + selectedOption.label);
   };
   const handleRoomChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption);
     const roomFilteredData = initialAndChangedData.filter((item) => {
       /* SelectedOption.value will be only the room number such as "CS 406" and
         item.location will be the room number and may include details after such
@@ -388,7 +383,6 @@ function App() {
     setActiveFilter('Room: ' + selectedOption.label);
   };
   const handleCourseChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption);
     const courseFilteredData = initialAndChangedData.filter(
       (item) => item.courseTitle === selectedOption.value
     );

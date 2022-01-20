@@ -40,9 +40,6 @@ function CalendarFront(props) {
       endTime = endTime.substring(0, endTime.length - 1);
     }
 
-    console.log(startTime);
-    console.log(endTime);
-
     const displayEvents = dayArray.map((day) => {
       return (
         <Container
